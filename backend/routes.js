@@ -60,5 +60,17 @@ router.get("/", (req, res) => {
 
   db.all(query, params, (_, rows) => res.json(rows));
 });
+router.delete("/expenses/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.run("DELETE FROM expenses WHERE id = ?", [id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Failed to delete expense" });
+    }
+
+    res.json({ success: true });
+  });
+});
+
 
 module.exports = router;
