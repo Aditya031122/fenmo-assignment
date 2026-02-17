@@ -71,6 +71,23 @@ router.delete("/expenses/:id", (req, res) => {
     res.json({ success: true });
   });
 });
+router.put("/expenses/:id", (req, res) => {
+  const { id } = req.params;
+  const { amount, category, description, date } = req.body;
+
+  db.run(
+    `UPDATE expenses 
+     SET amount = ?, category = ?, description = ?, date = ?
+     WHERE id = ?`,
+    [amount, category, description, date, id],
+    function (err) {
+      if (err) {
+        return res.status(500).json({ error: "Failed to update expense" });
+      }
+      res.json({ success: true });
+    }
+  );
+});
 
 
 module.exports = router;
