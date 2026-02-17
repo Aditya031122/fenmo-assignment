@@ -22,7 +22,12 @@ export default function App() {
     <>
       <h1>Expense Tracker</h1>
       <ExpenseForm onAdded={loadExpenses} />
-      <ExpenseList expenses={expenses} loading={loading} />
+      <ExpenseList
+  expenses={expenses}
+  loading={loading}
+  onDeleted={loadExpenses}
+/>
+
     </>
   );
 }
